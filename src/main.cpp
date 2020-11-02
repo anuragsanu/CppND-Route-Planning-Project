@@ -7,6 +7,7 @@
 #include "route_model.h"
 #include "render.h"
 #include "route_planner.h"
+#include <cstdlib>
 
 using namespace std::experimental;
 
@@ -52,16 +53,74 @@ int main(int argc, const char **argv)
             osm_data = std::move(*data);
     }
     
-    // TODO 1: Declare floats `start_x`, `start_y`, `end_x`, and `end_y` and get
-    // user input for these values using std::cin. Pass the user input to the
-    // RoutePlanner object below in place of 10, 10, 90, 90.
-
+   // To check for the validity of the input
+    //this code logic has been taken from https://stackoverflow.com/questions/4271315/c-how-to-check-an-input-float-variable-for-valid-input
     float start_x , start_y , end_x , end_y;
-    std::cin >> start_x;
-    std::cin >> start_y;
-    std::cin >> end_x;
-    std::cin >> end_y;
+    int i= 0;
+    std::string input1 , input2 , input3 , input4;
+    while(i < 4)
+    {
+        if(i ==0)
+        {
+            std::cout << "Enter the start coordinate x " << std::endl;
+            std::cin >> input1;
+            if(input1.find_first_not_of("1234567890.-") != std::string::npos)
+            {
+                std::cout << " Please input valid float value for start coordinate x " << std::endl;
+                continue;
+            }
+            else
+            {
+                start_x = std::stof(input1.c_str());
 
+            }
+        }
+        if(i == 1)
+        {
+            std::cout << "Enter the start coordinate y " << std::endl;
+            std::cin >> input2;
+            if(input2.find_first_not_of("1234567890.-") != std::string::npos)
+            {
+                std::cout << " Please input valid float value for start coordinate y " << std::endl;
+                continue;
+            }
+            else
+            {
+                 start_y = std::stof(input2.c_str());
+            }
+        }
+        if(i ==2)
+        {
+            std::cout << "Enter the end coordinate x " << std::endl;
+            std::cin >> input3;
+            if(input3.find_first_not_of("1234567890.-") != std::string::npos)
+            {
+                std::cout << " Please input valid float value for end x coordinate " << std::endl;
+                continue;
+            }
+            else
+            {
+                end_x = std::stof(input3.c_str());
+            }
+        }
+        if(i ==3)
+        {
+            std::cout << "Enter the end coordinate y" << std::endl;
+            std::cin >> input4;
+            if(input4.find_first_not_of("1234567890.-") != std::string::npos)
+            {
+                std::cout << " Please input valid float value for end y coordinate " << std::endl;
+                continue;
+            }
+            else
+            {
+                end_y = std::stof(input4.c_str());
+            }
+        }
+
+        ++i;
+
+    }
     // Build Model.
     RouteModel model{osm_data};
 
